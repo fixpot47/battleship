@@ -1,6 +1,5 @@
-// Add the project's public URL and publishable key here.
-// This file is served to every visitor, so never put a service_role or secret key here.
+// Public browser key for the Battleship Supabase project.
 window.BATTLESHIP_CONFIG = {
-  url: "",
-  publishableKey: ""
+  url: "https://tatqvxrdbcqlujklkehb.supabase.co",
+  publishableKey: "sb_publishable_0dk_4RGynfmKni8NZx3_-g_70dJw8D4"
 };
