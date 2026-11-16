@@ -70,13 +70,13 @@ function setScreen(name){$("home").classList.toggle("hidden",name!=="home");$("l
 function getClient(){if(client)return client;if(!config.url||!config.publishableKey)throw Error("Онлайн-сервис ещё не подключён.");client=createClient(config.url,config.publishableKey,{realtime:{params:{eventsPerSecond:10}}});return client}
 function makeCode(){let s="";for(let i=0;i<6;i++)s+=alphabet[Math.floor(Math.random()*alphabet.length)];return s}
 function mySlot(){return gameState?.players?.findIndex(p=>p.id===myId)??-1}
-function send(payload){if(!channel)throw Error("Нет соединения с комнатой.");return channel.send({type:"broadcast",event:"game",payload})}
+function send(payload){if(!channel)throw Error("Нет соединения с комнатой.");if(isHost)hostMessage(payload);return channel.send({type:"broadcast",event:"game",payload})}
 function clone(x){return JSON.parse(JSON.stringify(x))}
 function publicState(forId){const s=clone(gameState);s.players.forEach(p=>{if(p.id!==forId)p.ships=null});return s}
 function persist(){if(isHost&&gameState)localStorage.setItem("bs-room-"+room,JSON.stringify(gameState))}
 function publishState(){persist();for(const p of gameState.players)if(p.id)send({kind:"snapshot",to:p.id,state:publicState(p.id)})}
 function startChannel(code,host){
- room=code;isHost=host;let c=getClient();channel=c.channel("battleship-"+code,{config:{broadcast:{ack:true,self:true}}});
+ room=code;isHost=host;let c=getClient();channel=c.channel("battleship-"+code,{config:{broadcast:{ack:true,self:false}}});
  channel.on("broadcast",{event:"game"},({payload})=>handleMessage(payload));
  channel.subscribe(status=>{if(status==="SUBSCRIBED"){if(isHost){publishState();renderLobby()}else send({kind:"hello",id:myId,name:myName})}if(status==="CHANNEL_ERROR"||status==="TIMED_OUT")showToast("Не удалось подключиться к комнате.");});
 }
@@ -85,7 +85,7 @@ function hostMessage(m){
   if(!gameState)return;
   let p=gameState.players.find(x=>x.id===m.id);
   if(!p){if(gameState.players.length>=2||gameState.phase!=="waiting"){send({kind:"reject",to:m.id,reason:"В этой комнате уже идёт игра."});return}p={id:m.id,name:(m.name||"Капитан").slice(0,18),ships:null,ready:false,shots:[]};gameState.players.push(p)}
-  publishState();renderLobby();return;
+  publishState();if(gameState.players.length===2)renderAll();else renderLobby();return;
  }
  if(!gameState)return;
  if(m.kind==="ready"){
