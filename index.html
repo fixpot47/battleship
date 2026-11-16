@@ -38,7 +38,7 @@ button,input{font:inherit}button{border:0;cursor:pointer;color:inherit}.hidden{d
 <p>Собери флот, отправь другу код комнаты и проверь, кто первым найдёт корабли соперника.</p>
 <div class="actions"><button class="btn primary" id="createBtn">⚓ Создать игру</button><button class="btn secondary" id="joinBtn">Присоединиться к игре</button></div>
 </div>
-<div class="features"><div class="feature"><b><i>🚢</i>Твой флот</b><span>10 прямых кораблей — от одного до четырёх отсеков.</span></div><div class="feature"><b><i>↻</i>Свои правила</b><span>Поворачивай корабли. Касание углами разрешено, боками — нет.</span></div><div class="feature"><b><i>🌊</i>Играйте вдвоём</b><span>Создай комнату и поделись шестизначным кодом.</span></div></div>
+<div class="features"><div class="feature"><b><i>🚢</i>Твой флот</b><span>10 прямых кораблей — от одного до четырёх отсеков.</span></div><div class="feature"><b><i>↻</i>Свои правила</b><span>Поворачивай корабли. Корабли не должны соприкасаться даже углами.</span></div><div class="feature"><b><i>🌊</i>Играйте вдвоём</b><span>Создай комнату и поделись шестизначным кодом.</span></div></div>
 <section class="panel subpanel hidden" id="joinPanel"><h2>Войти в игру</h2><p>Введи код комнаты, который создал второй игрок.</p><input class="name-input" id="joinName" maxlength="18" placeholder="Твоё имя (например, Капитан)" value="Капитан"><div class="field"><input id="codeInput" maxlength="6" placeholder="6 букв или цифр" autocomplete="off"><button class="btn primary" id="connectBtn">Подключиться</button></div><p class="hint" id="joinError"></p></section>
 </section>
 <section id="lobby" class="panel lobby hidden">
@@ -54,7 +54,7 @@ button,input{font:inherit}button{border:0;cursor:pointer;color:inherit}.hidden{d
 <div class="panel board-card"><div class="board-title"><h3>ТВОЙ ФЛОТ</h3><span class="hint" id="ownCaption"></span></div><div class="board" id="ownBoard"></div></div>
 <div class="panel board-card"><div class="board-title"><h3>ПОЛЕ СОПЕРНИКА</h3><span class="hint" id="enemyCaption"></span></div><div class="board" id="enemyBoard"></div></div>
 </div>
-<div id="setupPanel" class="panel setup"><strong>Расставь корабли</strong><p>Выбери корабль и нажми клетку. Клавиша <b>R</b> или кнопка «Повернуть» меняет направление. Корабли могут касаться углами, но не боками.</p><div class="inline"><button class="btn secondary small" id="rotateBtn">↻ Повернуть</button><button class="btn secondary small" id="randomBtn">🎲 Расставить случайно</button></div><div class="fleet" id="fleetChoices"></div><div class="inline"><button class="btn gold" id="readyBtn" disabled>Готово к бою</button><span class="hint" id="setupHint"></span></div></div>
+<div id="setupPanel" class="panel setup"><strong>Расставь корабли</strong><p>Выбери корабль и нажми клетку. Клавиша <b>R</b> или кнопка «Повернуть» меняет направление. Корабли не должны соприкасаться друг с другом — даже по диагонали.</p><div class="inline"><button class="btn secondary small" id="rotateBtn">↻ Повернуть</button><button class="btn secondary small" id="randomBtn">🎲 Расставить случайно</button></div><div class="fleet" id="fleetChoices"></div><div class="inline"><button class="btn gold" id="readyBtn" disabled>Готово к бою</button><span class="hint" id="setupHint"></span></div></div>
 </section>
 </main><footer>Бой ведётся по очереди. Попал — стреляй ещё раз.</footer>
 </div><div class="toast" id="toast"></div>
